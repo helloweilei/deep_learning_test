@@ -1,6 +1,7 @@
 import torch
 import matplotlib.pyplot as plt
 import random
+from utils import sgd
 
 def main():
     print("Hello from chapter-3!")
@@ -46,22 +47,6 @@ def huber_loss(y_hat, y, delta=1.0):
     '''
     abs_error = torch.abs(y_hat - y.reshape(y_hat.shape))
     return torch.where(abs_error > delta, abs_error - 0.5 * delta, 0.5 * abs_error ** 2 / delta)
-
-def sgd(params, lr, batch_size):
-    '''小批量随机梯度下降
-    Parameters
-    ----------
-    params : list
-        模型参数列表
-    lr : float
-        学习率
-    batch_size : int
-        小批量的大小
-    '''
-    with torch.no_grad():
-        for param in params:
-            param -= lr * param.grad / batch_size
-            param.grad.zero_()
 
 if __name__ == "__main__":
     true_w = torch.tensor([2, -3.4])
