@@ -74,4 +74,18 @@ def get_fashion_mnist_labels(labels):
     '''
     text_labels = ['t-shirt', 'trouser', 'pullover', 'dress', 'coat',
                    'sandal', 'shirt', 'sneaker', 'bag', 'ankle boot']
-    return [text_labels[int(i)] for i in labels]         
+    return [text_labels[int(i)] for i in labels]
+
+def load_array(data_arrays, batch_size, is_train=True):
+    '''加载数据
+    Parameters
+    ----------
+    data_arrays : list of torch.Tensor
+        数据列表，列表中的每个元素都是一个torch.Tensor
+    batch_size : int
+        小批量的大小
+    is_train : bool, optional
+        是否为训练数据，默认为True
+    '''
+    dataset = torch.utils.data.TensorDataset(*data_arrays)
+    return torch.utils.data.DataLoader(dataset, batch_size, shuffle=is_train)
